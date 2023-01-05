@@ -16,7 +16,7 @@ const CreateUser = asyncHandler(async (req, res) => {
   const userExists = await User.findOne({ email });
   if (userExists) {
     res.status(400);
-    throw new Error("User already exists");
+    throw new Error("User already exists"); 
   }
 
   //Hash password
@@ -64,7 +64,7 @@ const LoginUser = asyncHandler(async (req, res) => {
   if (user && (await bcrypt.compare(password, user.password))) {
     res.json({
       _id: user.id,
-      username: user.username,
+      name: user.name,
       email: user.email,
       token: generateToken(user._id),
     });
