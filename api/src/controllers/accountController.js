@@ -29,7 +29,7 @@ const setAccount = asyncHandler(async (req, res) => {
     amount: req.body.amount,
     user: req.user.id, // this is the logged in user id from the token
   });
-  res.status(200).json(account);
+  res.status(201).json({ message: "Account created successfully", account });
 });
 
 // Update account
