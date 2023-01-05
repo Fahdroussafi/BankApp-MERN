@@ -36,6 +36,7 @@ const CreateUser = asyncHandler(async (req, res) => {
       name: user.name,
       email: user.email,
       token: generateToken(user._id),
+      message: "Your account has been created successfully",
     });
   } else {
     res.status(400);
@@ -67,6 +68,7 @@ const LoginUser = asyncHandler(async (req, res) => {
       name: user.name,
       email: user.email,
       token: generateToken(user._id),
+      message: "You have successfully logged in",
     });
   } else {
     res.status(400);
@@ -76,13 +78,7 @@ const LoginUser = asyncHandler(async (req, res) => {
 
 // GET USER BY ID
 const GetUserById = asyncHandler(async (req, res) => {
-  const user = await User.findById(req.params.id);
-  if (user) {
-    res.json(user);
-  } else {
-    res.status(404);
-    throw new Error("User not found");
-  }
+  res.status(200).json(req.user);
 });
 
 //Generate JWT token
