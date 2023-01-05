@@ -20,9 +20,8 @@ npm install
 ```
 cd api
 npm run dev
-
+```
 ```
 cd frontend
 npm start
-
 ```
