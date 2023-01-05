@@ -16,7 +16,7 @@ const CreateUser = asyncHandler(async (req, res) => {
   const userExists = await User.findOne({ email });
   if (userExists) {
     res.status(400);
-    throw new Error("User already exists"); 
+    throw new Error("User already exists");
   }
 
   //Hash password
@@ -74,6 +74,17 @@ const LoginUser = asyncHandler(async (req, res) => {
   }
 });
 
+// GET USER BY ID
+const GetUserById = asyncHandler(async (req, res) => {
+  const user = await User.findById(req.params.id);
+  if (user) {
+    res.json(user);
+  } else {
+    res.status(404);
+    throw new Error("User not found");
+  }
+});
+
 //Generate JWT token
 const generateToken = (id) => {
   return jwt.sign({ id }, process.env.JWT_SECRET, {
@@ -81,4 +92,4 @@ const generateToken = (id) => {
   });
 };
 
-module.exports = { CreateUser, LoginUser };
+module.exports = { CreateUser, LoginUser, GetUserById };
