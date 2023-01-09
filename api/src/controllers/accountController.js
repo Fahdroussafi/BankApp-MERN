@@ -2,15 +2,26 @@ const asyncHandler = require("express-async-handler");
 const Account = require("../models/accountModel");
 const User = require("../models/userModel");
 
-// Get accounts
-
+// @desc all accounts for a user
+// @route GET /api/accounts/get-accounts
+// @access Private
 const getAccounts = asyncHandler(async (req, res) => {
   const accounts = await Account.find({ user: req.user.id });
 
   res.status(200).json(accounts);
 });
 
-// Set account
+// @desc Get all accounts
+// @route GET /api/accounts/get-all-accounts
+// @access Private
+const getAllAccounts = asyncHandler(async (req, res) => {
+  const accounts = await Account.find({});
+  res.status(200).json(accounts);
+});
+
+// @desc Create a new account
+// @route POST /api/accounts/create-account
+// @access Private
 const setAccount = asyncHandler(async (req, res) => {
   if (!req.body.name) {
     res.status(400);
@@ -26,7 +37,7 @@ const setAccount = asyncHandler(async (req, res) => {
 
   const account = await Account.create({
     name: req.body.name,
-    amount: req.body.amount,
+    balance: req.body.balance,
     user: req.user.id, // this is the logged in user id from the token
   });
   res.status(201).json({ message: "Account created successfully", account });
@@ -60,7 +71,9 @@ const updateAccount = asyncHandler(async (req, res) => {
   res.status(200).json(updatedAccount);
 });
 
-//Delete account
+// @desc Delete account by id
+// @route DELETE /api/accounts/delete-account/:id
+// @access Private
 const deleteAccount = asyncHandler(async (req, res) => {
   const account = await Account.findById(req.params.id);
 
@@ -93,4 +106,5 @@ module.exports = {
   setAccount,
   updateAccount,
   deleteAccount,
+  getAllAccounts,
 };
