@@ -12,10 +12,9 @@ const accountSchema = new mongoose.Schema(
       required: [true, "Please fill the information"],
     },
 
-    amount: {
+    balance: {
       type: Number,
       required: true,
-      default: 0,
     },
   },
   {
