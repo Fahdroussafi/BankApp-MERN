@@ -1,6 +1,7 @@
 const asyncHandler = require("express-async-handler");
 const Account = require("../models/accountModel");
 const Transaction = require("../models/transactionModel");
+const User = require("../models/userModel");
 
 // @desc    Create a new transaction
 // @route   POST /api/transactions
@@ -50,7 +51,7 @@ const createTransaction = asyncHandler(async (req, res) => {
       account_id,
       transaction_amount,
       transaction_type,
-      transfer_to,
+      transfer_to: transfer_to,
       balance: account.balance,
     });
 
@@ -64,12 +65,28 @@ const createTransaction = asyncHandler(async (req, res) => {
 });
 
 // get all transactions for a user
-// GET /api/transactions
+// GET /api/transactions/get-transactions
+// @access  Private
 
 const getTransactions = asyncHandler(async (req, res) => {
-  const transactions = await Transaction.find({ user_id: req.user.id });
+  // show all the transactions by user and also account _id informations from account table
+  const transactions = await Transaction.find({
+    user_id: req.user.id,
+  })
+    .populate({
+      path: "account_id",
+      select: "name",
+      model: Account,
+      options: { strictPopulate: false },
+    })
+    .populate({
+      path: "transfer_to",
+      select: "name",
+      model: Account,
+      options: { strictPopulate: false },
+    });
 
-  res.status(200).json(transactions);
+  res.json(transactions);
 });
 
 module.exports = { createTransaction, getTransactions };
