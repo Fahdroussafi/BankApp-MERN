@@ -6,17 +6,16 @@ import Spinner from "./Spinner";
 
 function AccountForm() {
   const [name, setName] = useState("");
-  const [amount, setAmount] = useState("");
+  const [balance, setBalance] = useState("");
 
   const dispatch = useDispatch();
   const { isLoading, isError, isSuccess, message } = useSelector(
     (state) => state.accounts
   );
-  // const { accounts } = useSelector((state) => state.accounts);
 
   const onSubmit = (e) => {
     e.preventDefault();
-    dispatch(createAccount({ name, amount }));
+    dispatch(createAccount({ name, balance }));
     setName("");
   };
 
@@ -49,10 +48,10 @@ function AccountForm() {
           <label htmlFor="name">Initial amount</label>
           <input
             type="number"
-            name="amount"
-            id="amount"
-            value={amount}
-            onChange={(e) => setAmount(e.target.value)}
+            name="balance"
+            id="balance"
+            value={balance}
+            onChange={(e) => setBalance(e.target.value)}
           />
         </div>
         <div className="form-group">
