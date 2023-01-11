@@ -29,6 +29,9 @@ function Login() {
     if (isSuccess || user) {
       navigate("/");
     }
+    if (user && user.isAdmin === true) {
+      navigate("/dashboard");
+    }
     if (isSuccess) {
       toast.success(message);
     }
