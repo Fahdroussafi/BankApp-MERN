@@ -19,7 +19,9 @@ function AccountItem({ account }) {
       })
     );
     if (amount > account.balance) {
-      toast.error("You don't have enough money in your account");
+      toast.error("You don't have enough money in your account to withdraw ");
+    } else if (amount <= 0) {
+      toast.error("Amount must be greater than 0");
     } else {
       toast.success("Withdrawal successful");
       setTimeout(() => {
@@ -36,10 +38,14 @@ function AccountItem({ account }) {
         account_id: account._id,
       })
     );
-    toast.success("Deposit successful");
-    setTimeout(() => {
-      window.location.reload();
-    }, 2000);
+    if (amount <= 0) {
+      toast.error("Amount must be greater than 0");
+    } else {
+      toast.success("Deposit successful");
+      setTimeout(() => {
+        window.location.reload();
+      }, 2000);
+    }
   };
 
   const transferHandler = async () => {
@@ -58,8 +64,10 @@ function AccountItem({ account }) {
         },
       }
     );
-    if (response.data.error) {
-      toast.error(response.data.error);
+    if (amount > account.balance) {
+      toast.error("You don't have enough money in your account to withdraw ");
+    } else if (amount <= 0) {
+      toast.error("Amount must be greater than 0");
     } else {
       toast.success("Transfer successful");
       setTimeout(() => {
