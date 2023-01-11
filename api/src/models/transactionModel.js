@@ -28,9 +28,9 @@ const transactionSchema = new mongoose.Schema(
       type: String,
     },
     transfer_to: {
-      type: String,
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Account",
     },
-
     balance: {
       type: Number,
     },
