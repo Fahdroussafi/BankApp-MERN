@@ -13,6 +13,10 @@ const createTransaction = asyncHandler(async (req, res) => {
 
   const account = await Account.findById(account_id);
 
+  if (transaction_amount <= 0) {
+    res.status(400);
+    throw new Error("Transaction amount must be greater than 0");
+  }
   if (account) {
     if (transaction_type === "deposit") {
       account.balance =
