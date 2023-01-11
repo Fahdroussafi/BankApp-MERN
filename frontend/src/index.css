@@ -48,9 +48,6 @@ h3 {
 }
 
 .header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
   padding: 20px 0;
 
   border-bottom: 1px solid #5b969e;
@@ -106,12 +103,6 @@ h3 {
   font-weight: 200;
   font-size: 1rem;
 }
-
-/* .accounts {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 10px;
-} */
 
 .account {
   background-color: #d3ddde;
