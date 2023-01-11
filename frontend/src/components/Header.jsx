@@ -15,18 +15,35 @@ function Header() {
   };
 
   return (
-    <header className="header">
+    <header className="header flex items-center justify-between">
       <div className="logo">
         <Link className="logo-link" to="/">
           <span>POOR </span>BANK
         </Link>
       </div>
       {user ? (
-        <div>
-          <button className="btn" onClick={onLogout}>
-            <FaSignOutAlt /> Logout
-          </button>
-        </div>
+        user.isAdmin === false ? (
+          <>
+            <div>
+              <button className="btn">
+                <Link to="/transactions">Transactions</Link>
+              </button>
+            </div>
+            <div>
+              <button className="btn" onClick={onLogout}>
+                <FaSignOutAlt /> Logout
+              </button>
+            </div>
+          </>
+        ) : (
+          <>
+            <div>
+              <button className="btn" onClick={onLogout}>
+                <FaSignOutAlt /> Logout
+              </button>
+            </div>
+          </>
+        )
       ) : (
         <>
           <ul>
