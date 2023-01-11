@@ -1,0 +1,54 @@
+# docker compose version which is currently 3.8
+version: "3.8"
+
+# services : is a list of our container
+services:
+  # name is optional for our mongodb
+  mymongodb:
+    # since mongo is an offical image we can use it.
+    image: "mongo"
+
+    # the port that we want to publish for mongodb
+    ports:
+      - "27017:27017"
+
+    # our mongodb depends on volume to keep the data alive.
+    volumes:
+      - data:/data/db
+
+  # name is optional for our backend
+  api:
+    # to build an image based on Dockerfile
+    # it looks in this folder to find Dockerfile to build an image
+    build: ./api
+    # the port that we want to publish for backend
+    ports:
+      - "8080:8080"
+
+    # depends_on means it will start our backend container once mongo-container is  up and running.
+    depends_on:
+      - mymongodb
+
+  # name is optional for our frontend
+  frontend:
+    # to build an image based on Dockerfile
+    # it looks in this folder to find Dockerfile to build an image
+    build: ./frontend
+
+    # the port that we want to publish for frontend
+    ports:
+      - "3000:3000"
+    # add bind mount volume to keep have updated source code
+    volumes:
+      - ./frontend/src:/app/src
+    # allow interactive mode
+    stdin_open: true
+    tty: true
+
+    # it will start our frontend container once backend-container is  up and running.
+    depends_on:
+      - api
+
+# declare the volumes name that our app is using.
+volumes:
+  data:
