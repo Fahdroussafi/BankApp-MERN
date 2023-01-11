@@ -13,7 +13,7 @@ const getAccounts = asyncHandler(async (req, res) => {
 
 // @desc Get all accounts
 // @route GET /api/accounts/get-all-accounts
-// @access Private
+// @access Public
 const getAllAccounts = asyncHandler(async (req, res) => {
   const accounts = await Account.find({});
   res.status(200).json(accounts);
@@ -41,34 +41,6 @@ const setAccount = asyncHandler(async (req, res) => {
     user: req.user.id, // this is the logged in user id from the token
   });
   res.status(201).json({ message: "Account created successfully", account });
-});
-
-// Update account
-
-const updateAccount = asyncHandler(async (req, res) => {
-  const account = await Account.findById(req.params.id);
-
-  if (!account) {
-    res.status(400);
-    throw new Error("Account not found");
-  }
-
-  const user = await User.findById(req.user.id);
-
-  //Check for User
-  if (!user) {
-    res.status(401);
-    throw new Error("User not found");
-  }
-
-  const updatedAccount = await Account.findByIdAndUpdate(
-    req.params.id,
-    req.body,
-    {
-      new: true,
-    }
-  );
-  res.status(200).json(updatedAccount);
 });
 
 // @desc Delete account by id
@@ -104,7 +76,6 @@ const deleteAccount = asyncHandler(async (req, res) => {
 module.exports = {
   getAccounts,
   setAccount,
-  updateAccount,
   deleteAccount,
   getAllAccounts,
 };
