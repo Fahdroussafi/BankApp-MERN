@@ -1,7 +1,6 @@
 const asyncHandler = require("express-async-handler");
 const Account = require("../models/accountModel");
 const Transaction = require("../models/transactionModel");
-const User = require("../models/userModel");
 
 // @desc    Create a new transaction
 // @route   POST /api/transactions
@@ -17,11 +16,12 @@ const createTransaction = asyncHandler(async (req, res) => {
     res.status(400);
     throw new Error("Transaction amount must be greater than 0");
   }
+  if (transaction_type !== "withdrawal" && transaction_type !== "transfer") {
+    res.status(400);
+    throw new Error("Transaction type must be withdrawal or transfer");
+  }
   if (account) {
-    if (transaction_type === "deposit") {
-      account.balance =
-        parseInt(account.balance) + parseInt(transaction_amount);
-    } else if (transaction_type === "withdrawal") {
+    if (transaction_type === "withdrawal") {
       account.balance =
         parseInt(account.balance) - parseInt(transaction_amount);
       if (account.balance < 0) {
