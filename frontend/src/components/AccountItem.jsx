@@ -30,24 +30,6 @@ function AccountItem({ account }) {
     }
   };
 
-  const depositHandler = () => {
-    dispatch(
-      createTransaction({
-        transaction_amount: amount,
-        transaction_type: "deposit",
-        account_id: account._id,
-      })
-    );
-    if (amount <= 0) {
-      toast.error("Amount must be greater than 0");
-    } else {
-      toast.success("Deposit successful");
-      setTimeout(() => {
-        window.location.reload();
-      }, 2000);
-    }
-  };
-
   const transferHandler = async () => {
     const token = localStorage.getItem("token");
     const response = await axios.post(
@@ -126,16 +108,10 @@ function AccountItem({ account }) {
           onChange={(e) => setAmount(e.target.value)}
         />
         <button
-          className="bg-orange-600 hover:bg-orange-700 hover:duration-300 text-white font-bold py-2 px-4 rounded-full"
+          className="bg-green-600 hover:bg-green-700 hover:duration-300 text-white font-bold py-2 px-4 rounded-full"
           onClick={withdrawHandler}
         >
           Withdraw
-        </button>
-        <button
-          className="bg-green-600 hover:bg-green-700 hover:duration-300 text-white font-bold py-2 px-4 rounded-full"
-          onClick={depositHandler}
-        >
-          Deposit
         </button>
         <button
           className="bg-blue-600 hover:bg-blue-700 hover:duration-300 text-white font-bold py-2 px-4 rounded-full"
