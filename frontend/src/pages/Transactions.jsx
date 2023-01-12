@@ -1,9 +1,15 @@
 import { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+
 import moment from "moment";
 import axios from "axios";
 
 function Transactions() {
   const [transactions, setTransactions] = useState([]);
+
+  const navigate = useNavigate();
+  const { user } = useSelector((state) => state.auth);
 
   const getTransactions = async () => {
     const token = localStorage.getItem("token");
@@ -20,6 +26,10 @@ function Transactions() {
   };
 
   useEffect(() => {
+    if (!user) {
+      navigate("/login");
+    }
+
     getTransactions();
   }, []);
 

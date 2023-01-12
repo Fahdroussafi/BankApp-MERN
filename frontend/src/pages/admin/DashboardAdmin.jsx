@@ -1,11 +1,19 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
 import moment from "moment";
 
 function DashboardAdmin() {
   const [users, setUsers] = useState([]);
+  const navigate = useNavigate();
+
+  const { user } = useSelector((state) => state.auth);
 
   useEffect(() => {
+    if (!user) {
+      navigate("/login");
+    }
     const fetchUsers = async () => {
       const config = {
         headers: {
