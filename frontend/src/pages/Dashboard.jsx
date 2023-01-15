@@ -50,7 +50,7 @@ function Dashboard() {
       <Helmet>
         <title>Dashboard</title>
       </Helmet>
-      <section className="heading">
+      <section className="heading text-center">
         <h1>Welcome {user && user.name}</h1>
         <p>Account Dashboard</p>
       </section>
