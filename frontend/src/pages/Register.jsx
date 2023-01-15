@@ -10,11 +10,14 @@ function Register() {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
+    cin: "",
+    phone: "",
+    address: "",
     password: "",
     password2: "",
   });
 
-  const { name, email, password, password2 } = formData;
+  const { name, email, cin, phone, address, password, password2 } = formData;
 
   const dispatch = useDispatch();
 
@@ -53,6 +56,9 @@ function Register() {
         name,
         email,
         password,
+        address,
+        phone,
+        cin,
       };
 
       dispatch(register(userData));
@@ -121,6 +127,63 @@ function Register() {
                       className="absolute text-sm text-gray-500 dark:text-black duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
                     >
                       Email address
+                    </label>
+                  </div>
+                </div>
+                <div className="mt-2 text-left">
+                  <div className="relative z-0 mb-6 w-full group">
+                    <input
+                      type="text"
+                      name="address"
+                      value={address}
+                      onChange={onChange}
+                      className="block py-2.5 px-0 w-full text-sm bg-transparent border-0 border-b-2 border-gray-300 appearance-none text-black dark:border-blue-500 dark:focus:border-blue-700 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                      placeholder=" "
+                      required
+                    />
+                    <label
+                      htmlFor="floating_address"
+                      className="absolute text-sm text-gray-500 dark:text-black duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                    >
+                      Address
+                    </label>
+                  </div>
+                </div>
+                <div className="mt-2 text-left">
+                  <div className="relative z-0 mb-6 w-full group">
+                    <input
+                      type="number"
+                      name="phone"
+                      value={phone}
+                      onChange={onChange}
+                      className="block py-2.5 px-0 w-full text-sm bg-transparent border-0 border-b-2 border-gray-300 appearance-none text-black dark:border-blue-500 dark:focus:border-blue-700 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                      placeholder=" "
+                      required
+                    />
+                    <label
+                      htmlFor="floating_phone"
+                      className="absolute text-sm text-gray-500 dark:text-black duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                    >
+                      Phone Number
+                    </label>
+                  </div>
+                </div>
+                <div className="mt-2 text-left">
+                  <div className="relative z-0 mb-6 w-full group">
+                    <input
+                      type="text"
+                      name="cin"
+                      value={cin}
+                      onChange={onChange}
+                      className="block py-2.5 px-0 w-full text-sm bg-transparent border-0 border-b-2 border-gray-300 appearance-none text-black dark:border-blue-500 dark:focus:border-blue-700 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                      placeholder=" "
+                      required
+                    />
+                    <label
+                      htmlFor="floating_cin"
+                      className="absolute text-sm text-gray-500 dark:text-black duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                    >
+                      CIN
                     </label>
                   </div>
                 </div>
