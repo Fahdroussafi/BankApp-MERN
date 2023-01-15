@@ -5,9 +5,9 @@ const asyncHandler = require("express-async-handler");
 
 //REGISTER new user
 const CreateUser = asyncHandler(async (req, res) => {
-  const { name, email, password } = req.body;
+  const { name, email, password, cin, phone, address } = req.body;
 
-  if (!name || !email || !password) {
+  if (!name || !email || !password || !cin || !phone || !address) {
     res.status(400);
     throw new Error("Please add all fields");
   }
@@ -28,6 +28,9 @@ const CreateUser = asyncHandler(async (req, res) => {
     name,
     email,
     password: hashedPassword,
+    cin,
+    phone,
+    address,
   });
 
   if (user) {
