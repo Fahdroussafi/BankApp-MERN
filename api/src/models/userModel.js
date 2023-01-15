@@ -16,6 +16,18 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: [true, "Please add a password"],
     },
+    cin: {
+      type: String,
+      required: [true, "Please add a cin"],
+    },
+    phone: {
+      type: String,
+      required: [true, "Please add a phone"],
+    },
+    address: {
+      type: String,
+      required: [true, "Please add a address"],
+    },
     isAdmin: {
       type: Boolean,
       default: false,
