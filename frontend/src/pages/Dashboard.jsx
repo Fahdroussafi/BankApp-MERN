@@ -17,7 +17,7 @@ function Dashboard() {
   );
 
   useEffect(() => {
-    if (!user) {
+    if (!user || user.isAdmin === true) {
       navigate("/login");
     } else {
       dispatch(getAccounts());
@@ -64,7 +64,9 @@ function Dashboard() {
             ))}
           </div>
         ) : (
-          <h3>You have not set any accounts </h3>
+          <h1 className="text-center font-bold text-lg ">
+            You have not set any accounts yet
+          </h1>
         )}
       </section>
     </>
