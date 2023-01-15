@@ -1,14 +1,11 @@
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
-
 import moment from "moment";
 import axios from "axios";
+import { Helmet } from "react-helmet";
 
 function Transactions() {
   const [transactions, setTransactions] = useState([]);
-
-  const navigate = useNavigate();
   const { user } = useSelector((state) => state.auth);
 
   const getTransactions = async () => {
@@ -27,65 +24,107 @@ function Transactions() {
 
   useEffect(() => {
     if (!user) {
-      navigate("/login");
+      window.location.href = "/login";
     }
 
     getTransactions();
-  }, []);
+  }, [user]);
 
   return (
     <>
-      <div className="relative overflow-x-auto">
-        <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-          <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-            <th scope="col" className="px-6 py-3">
+      <Helmet>
+        <title>Transactions</title>
+      </Helmet>
+      <table className="border-collapse w-full mx-8">
+        <thead>
+          <tr>
+            <th className="p-3 font-bold uppercase bg-gray-200 text-gray-600 border border-gray-300 hidden lg:table-cell">
               From
             </th>
-            <th scope="col" className="px-6 py-3">
+            <th className="p-3 font-bold uppercase bg-gray-200 text-gray-600 border border-gray-300 hidden lg:table-cell">
               To
             </th>
-            <th scope="col" className="px-6 py-3">
+            <th className="p-3 font-bold uppercase bg-gray-200 text-gray-600 border border-gray-300 hidden lg:table-cell">
               Transaction Amount
             </th>
-            <th scope="col" className="px-6 py-3">
+            <th className="p-3 font-bold uppercase bg-gray-200 text-gray-600 border border-gray-300 hidden lg:table-cell">
               Transaction Type
             </th>
-            <th scope="col" className="px-6 py-3">
+            <th className="p-3 font-bold uppercase bg-gray-200 text-gray-600 border border-gray-300 hidden lg:table-cell">
               Balance
             </th>
-            <th scope="col" className="px-6 py-3">
+            <th className="p-3 font-bold uppercase bg-gray-200 text-gray-600 border border-gray-300 hidden lg:table-cell">
               Transaction Date
             </th>
-          </thead>
-          <tbody className="bg-white border-b dark:bg-gray-800 dark:border-gray-70">
-            {transactions.map((transaction, key) => (
-              <tr
-                className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
-                key={key}
-              >
-                <th
-                  scope="row"
-                  className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-                >
-                  {transaction.account_id.name}
-                </th>
+          </tr>
+        </thead>
+        <tbody>
+          {transactions.map((transaction, key) => (
+            <tr
+              key={key}
+              className="bg-white lg:hover:bg-gray-100 flex lg:table-row flex-row lg:flex-row flex-wrap lg:flex-no-wrap mb-10 lg:mb-0"
+            >
+              <td className="w-full lg:w-auto p-3 text-gray-800 text-center border border-b block lg:table-cell relative lg:static">
+                <span className="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">
+                  From
+                </span>
+                {transaction.account_id.name}
+              </td>
+              <td className="w-full lg:w-auto p-3 text-gray-800 border border-b text-center block lg:table-cell relative lg:static">
+                <span className="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">
+                  To
+                </span>
                 {transaction.transfer_to ? (
                   <td className="px-6 py-4">{transaction.transfer_to.name}</td>
                 ) : (
                   <td className="px-6 py-4">N/A</td>
                 )}
-                <td className="px-6 py-4">{transaction.transaction_amount}</td>
-                <td className="px-6 py-4">{transaction.transaction_type}</td>
-                <td className="px-6 py-4">{transaction.balance}</td>
-                <td className="px-6 py-4">
+              </td>
+              <td className="w-full lg:w-auto p-3 text-gray-800  border border-b text-center block lg:table-cell relative lg:static">
+                <span className="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">
+                  Transaction Amount
+                </span>
+                <span className="rounded py-1 px-3 text-xs font-bold">
+                  {" "}
+                  {transaction.transaction_amount}
+                </span>
+              </td>
+
+              <td className="w-full lg:w-auto p-3 text-gray-800  border border-b text-center block lg:table-cell relative lg:static">
+                <span className="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">
+                  Transaction Type
+                </span>
+                <span className="rounded py-1 px-3 text-xs font-bold">
+                  {" "}
+                  {transaction.transaction_type === "transfer" ? (
+                    <span className="text-green-500">Transfer</span>
+                  ) : (
+                    <span className="text-red-500">Withdrawal</span>
+                  )}
+                </span>
+              </td>
+              <td className="w-full lg:w-auto p-3 text-gray-800  border border-b text-center block lg:table-cell relative lg:static">
+                <span className="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">
+                  Balance
+                </span>
+                <span className="rounded py-1 px-3 text-xs font-bold">
+                  {" "}
+                  {transaction.balance}
+                </span>
+              </td>
+              <td className="w-full lg:w-auto p-3 text-gray-800 border border-b text-center block lg:table-cell relative lg:static">
+                <span className="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">
+                  Transaction Date
+                </span>
+                <span className="rounded py-1 px-3 text-xs font-bold">
+                  {" "}
                   {moment(transaction.createdAt).format("DD/MM/YYYY hh:mm:ss")}
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-      ;
+                </span>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </>
   );
 }
