@@ -32,7 +32,7 @@ function AccountItem({ account }) {
 
   const transferHandler = async () => {
     const token = localStorage.getItem("token");
-    const response = await axios.post(
+    await axios.post(
       "http://localhost:8080/api/transactions/create-transaction",
       {
         transaction_amount: amount,
@@ -79,56 +79,61 @@ function AccountItem({ account }) {
       setAccounts(filteredAccounts);
     };
     fetchAccounts();
-  }, [dispatch]);
+  }, [dispatch, account._id]);
 
   return (
-    <div className="account">
-      <h2>
-        Account name: <span className="account-title-span">{account.name}</span>
+    <div className="account bg-gray-300 mx-0 my-3 px-0 py-10 relative rounded-[10px]">
+      <h2 className="font-bold text-center">
+        Account name:{" "}
+        <span className="text-base font-light mb-2">{account.name}</span>
       </h2>
-      <h2>
-        Account balance:
-        <span className="account-title-span">{account.balance} DH </span>
+      <h2 className="font-bold text-center">
+        Account balance:{" "}
+        <span className="text-base font-light mb-2">{account.balance} DH </span>
       </h2>
-      <h2 className="account-id">
-        Account ID: <span className="account-id-2">{account._id}</span>
-      </h2>
+
       <div className="flex justify-center gap-3">
         <button
           onClick={() => dispatch(deleteAccount(account._id))}
-          className="close bg-red-600 hover:bg-red-700 hover:duration-300 text-white font-bold py-2 px-4 rounded-full"
+          className="close inline-block px-6 py-2.5 bg-red-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-red-700 hover:shadow-lg focus:bg-red-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-red-800 active:shadow-lg transition duration-150 ease-in-out"
         >
           Delete Account
         </button>
         <input
-          className="account-input"
+          className="account-input border-solid border py-1 px-2 rounded-xl border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"
           type="number"
           name="amount"
           value={amount}
           onChange={(e) => setAmount(e.target.value)}
         />
         <button
-          className="bg-green-600 hover:bg-green-700 hover:duration-300 text-white font-bold py-2 px-4 rounded-full"
+          className="inline-block px-6 py-2.5 bg-green-500 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-green-600 hover:shadow-lg focus:bg-green-600 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-green-700 active:shadow-lg transition duration-150 ease-in-out"
           onClick={withdrawHandler}
         >
           Withdraw
         </button>
         <button
-          className="bg-blue-600 hover:bg-blue-700 hover:duration-300 text-white font-bold py-2 px-4 rounded-full"
+          className="inline-block px-6 py-2.5 bg-blue-400 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-500 hover:shadow-lg focus:bg-blue-500 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-600 active:shadow-lg transition duration-150 ease-in-out"
           onClick={transferHandler}
         >
           Transfer to
         </button>
       </div>
-
-      <select className="w-72 m-2" id="transfer_to">
-        <option value="">Select an account</option>
-        {accounts.map((account) => (
-          <option key={account._id} value={account._id}>
-            {account.name}
-          </option>
-        ))}
-      </select>
+      <div className="flex justify-center">
+        <div className="mb-3 xl:w-96">
+          <select
+            className="m-2 block w-full px-3 py-1.5 text-base font-normaltext-gray-700bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300 rounded transition ease-in-out focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+            id="transfer_to"
+          >
+            <option value="">Select an account</option>
+            {accounts.map((account) => (
+              <option key={account._id} value={account._id}>
+                {account.name}
+              </option>
+            ))}
+          </select>
+        </div>
+      </div>
     </div>
   );
 }
