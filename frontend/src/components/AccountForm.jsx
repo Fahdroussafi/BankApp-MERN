@@ -26,8 +26,9 @@ function AccountForm() {
     if (isError) {
       toast.error(message);
     }
-
-    dispatch(reset());
+    return () => {
+      dispatch(reset());
+    };
   }, [isError, isSuccess, message, dispatch]);
 
   if (isLoading) {
