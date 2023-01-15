@@ -38,38 +38,78 @@ function DashboardAdmin() {
       <Helmet>
         <title>Dashboard Admin</title>
       </Helmet>
-
-      <div className="relative overflow-x-auto">
-        <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-          <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-            <th scope="col" className="px-6 py-3">
-              Name
-            </th>
-            <th scope="col" className="px-6 py-3">
-              Email
-            </th>
-            <th scope="col" className="px-6 py-3">
-              Created At
-            </th>
+      {users.length > 0 ? (
+        <table className="border-collapse w-full m-10">
+          <thead>
+            <tr>
+              <th className="p-3 font-bold uppercase bg-gray-200 text-gray-600 border border-gray-300 hidden lg:table-cell">
+                Full Name
+              </th>
+              <th className="p-3 font-bold uppercase bg-gray-200 text-gray-600 border border-gray-300 hidden lg:table-cell">
+                Email
+              </th>
+              <th className="p-3 font-bold uppercase bg-gray-200 text-gray-600 border border-gray-300 hidden lg:table-cell">
+                Phone Number
+              </th>
+              <th className="p-3 font-bold uppercase bg-gray-200 text-gray-600 border border-gray-300 hidden lg:table-cell">
+                CIN
+              </th>
+              <th className="p-3 font-bold uppercase bg-gray-200 text-gray-600 border border-gray-300 hidden lg:table-cell">
+                Address
+              </th>
+              <th className="p-3 font-bold uppercase bg-gray-200 text-gray-600 border border-gray-300 hidden lg:table-cell">
+                Date Created
+              </th>
+            </tr>
           </thead>
-          <tbody className="bg-white border-b dark:bg-gray-800 dark:border-gray-70">
+          <tbody>
             {users.map((user) => (
-              <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                <th
-                  scope="row"
-                  className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-                >
+              <tr className="bg-white lg:hover:bg-gray-100 flex lg:table-row flex-row lg:flex-row flex-wrap lg:flex-no-wrap mb-10 lg:mb-0">
+                <td className="w-full lg:w-auto p-3 text-gray-800 text-center border border-b block lg:table-cell relative lg:static">
+                  <span className="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">
+                    Full Name
+                  </span>
                   {user.name}
-                </th>
-                <td className="px-6 py-4">{user.email}</td>
-                <td className="px-6 py-4">
+                </td>
+                <td className="w-full lg:w-auto p-3 text-gray-800 text-center border border-b block lg:table-cell relative lg:static">
+                  <span className="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">
+                    Email
+                  </span>
+                  {user.email}
+                </td>
+                <td className="w-full lg:w-auto p-3 text-gray-800 text-center border border-b block lg:table-cell relative lg:static">
+                  <span className="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">
+                    Phone Number
+                  </span>
+                  {user.phone}
+                </td>
+                <td className="w-full lg:w-auto p-3 text-gray-800 text-center border border-b block lg:table-cell relative lg:static">
+                  <span className="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">
+                    CIN
+                  </span>
+                  {user.cin}
+                </td>
+                <td className="w-full lg:w-auto p-3 text-gray-800 text-center border border-b block lg:table-cell relative lg:static">
+                  <span className="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">
+                    Address
+                  </span>
+                  {user.address}
+                </td>
+                <td className="w-full lg:w-auto p-3 text-gray-800 text-center border border-b block lg:table-cell relative lg:static">
+                  <span className="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">
+                    Date Created
+                  </span>
                   {moment(user.createdAt).format("DD/MM/YYYY")}
                 </td>
               </tr>
             ))}
           </tbody>
         </table>
-      </div>
+      ) : (
+        <div className="flex justify-center items-center h-screen">
+          <h1 className="text-2xl font-semibold">No Users Found</h1>
+        </div>
+      )}
     </>
   );
 }
