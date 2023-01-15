@@ -9,11 +9,16 @@ import Transactions from "./pages/Transactions";
 import DashboardAdmin from "./pages/admin/DashboardAdmin";
 
 function App() {
+  
+  const isLogin = window.location.pathname === "/login";
+  const isRegister = window.location.pathname === "/register";
+  const showHeader = !isLogin && !isRegister;
+
   return (
     <>
       <Router>
-        <div className="container">
-          <Header />
+        {showHeader && <Header />}
+        <div className="">
           <Routes>
             <Route path="/" element={<Dashboard />} />
             <Route path="/login" element={<Login />} />
