@@ -5,6 +5,7 @@ import AccountForm from "../components/AccountForm";
 import { getAccounts, reset } from "../features/accounts/accountSlice";
 import Spinner from "../components/Spinner";
 import AccountItem from "../components/AccountItem";
+import { Helmet } from "react-helmet";
 
 function Dashboard() {
   const navigate = useNavigate();
@@ -46,6 +47,9 @@ function Dashboard() {
 
   return (
     <>
+      <Helmet>
+        <title>Dashboard</title>
+      </Helmet>
       <section className="heading">
         <h1>Welcome {user && user.name}</h1>
         <p>Account Dashboard</p>
