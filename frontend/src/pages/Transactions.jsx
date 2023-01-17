@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import moment from "moment";
 import axios from "axios";
 import { Helmet } from "react-helmet";
+import Header from "../components/Header";
 
 function Transactions() {
   const [transactions, setTransactions] = useState([]);
@@ -35,6 +36,8 @@ function Transactions() {
       <Helmet>
         <title>Transactions</title>
       </Helmet>
+      <Header />
+
       {transactions.length > 0 ? (
         <table className="border-collapse w-full mx-8">
           <thead>

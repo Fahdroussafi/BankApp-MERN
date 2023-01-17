@@ -6,6 +6,7 @@ import { getAccounts, reset } from "../features/accounts/accountSlice";
 import Spinner from "../components/Spinner";
 import AccountItem from "../components/AccountItem";
 import { Helmet } from "react-helmet";
+import Header from "../components/Header";
 
 function Dashboard() {
   const navigate = useNavigate();
@@ -50,6 +51,7 @@ function Dashboard() {
       <Helmet>
         <title>Dashboard</title>
       </Helmet>
+      <Header />
       <section className="heading text-center text-xl">
         <h1>Welcome {user && user.name}</h1>
       </section>

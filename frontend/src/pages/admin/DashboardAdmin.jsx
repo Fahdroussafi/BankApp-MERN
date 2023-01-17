@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import axios from "axios";
 import moment from "moment";
 import { Helmet } from "react-helmet";
+import Header from "../../components/Header";
 
 function DashboardAdmin() {
   const [users, setUsers] = useState([]);
@@ -38,6 +39,8 @@ function DashboardAdmin() {
       <Helmet>
         <title>Dashboard Admin</title>
       </Helmet>
+      <Header />
+
       {users.length > 0 ? (
         <table className="border-collapse w-full m-10">
           <thead>
