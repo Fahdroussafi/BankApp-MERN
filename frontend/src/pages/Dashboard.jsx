@@ -50,9 +50,8 @@ function Dashboard() {
       <Helmet>
         <title>Dashboard</title>
       </Helmet>
-      <section className="heading text-center">
+      <section className="heading text-center text-xl">
         <h1>Welcome {user && user.name}</h1>
-        <p>Account Dashboard</p>
       </section>
       <AccountForm />
 
