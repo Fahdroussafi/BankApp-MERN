@@ -5,6 +5,7 @@ import { register, reset } from "../features/auth/authSlice";
 import Spinner from "../components/Spinner";
 import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet";
+import { useNavigate } from "react-router-dom";
 
 function Register() {
   const [formData, setFormData] = useState({
@@ -20,6 +21,7 @@ function Register() {
   const { name, email, cin, phone, address, password, password2 } = formData;
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const { user, isLoading, isError, isSuccess, message } = useSelector(
     (state) => state.auth
@@ -30,7 +32,7 @@ function Register() {
       toast.error(message);
     }
     if (isSuccess || user) {
-      window.location.href = "/";
+      navigate("/");
     }
     if (isSuccess) {
       toast.success(message);

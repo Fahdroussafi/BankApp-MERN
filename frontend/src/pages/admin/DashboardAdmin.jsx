@@ -4,18 +4,21 @@ import axios from "axios";
 import moment from "moment";
 import { Helmet } from "react-helmet";
 import Header from "../../components/Header";
+import { useNavigate } from "react-router-dom";
 
 function DashboardAdmin() {
   const [users, setUsers] = useState([]);
+
+  const navigate = useNavigate();
 
   const { user } = useSelector((state) => state.auth);
 
   useEffect(() => {
     if (!user) {
-      window.location.href = "/login";
+      navigate("/login");
     }
     if (user && user.isAdmin === false) {
-      window.location.href = "/";
+      navigate("/");
     }
     const fetchUsers = async () => {
       const config = {

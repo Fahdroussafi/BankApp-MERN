@@ -5,6 +5,7 @@ import { login, reset } from "../features/auth/authSlice";
 import Spinner from "../components/Spinner";
 import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet";
+import { useNavigate } from "react-router-dom";
 
 function Login() {
   const [formData, setFormData] = useState({
@@ -15,6 +16,7 @@ function Login() {
   const { email, password } = formData;
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const { user, isLoading, isError, isSuccess, message } = useSelector(
     (state) => state.auth
@@ -25,10 +27,10 @@ function Login() {
       toast.error(message);
     }
     if (isSuccess || user) {
-      window.location.href = "/";
+      navigate("/");
     }
     if (user && user.isAdmin === true) {
-      window.location.href = "/dashboard";
+      navigate("/dashboard");
     }
     if (isSuccess) {
       toast.success(message);
