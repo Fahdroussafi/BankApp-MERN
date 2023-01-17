@@ -170,7 +170,7 @@ function AccountItem({ account }) {
             <div className="modal">
               <div className="modal-box bg-white">
                 <p className="py-4">
-                  <span className="text-green-500 font-bold text-center block">
+                  <span className="text-black font-bold text-center block">
                     Are you sure you want to withdraw {amount} MAD from your
                     account?
                   </span>
@@ -214,7 +214,7 @@ function AccountItem({ account }) {
             <div className="modal">
               <div className="modal-box bg-white">
                 <p className="py-4">
-                  <span className="text-green-500 font-bold text-center block">
+                  <span className="text-black font-bold text-center block">
                     Are you sure you want to transfer {amount} MAD from your
                     account to another account?
                   </span>
