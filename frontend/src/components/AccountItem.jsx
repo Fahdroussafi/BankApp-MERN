@@ -10,6 +10,7 @@ function AccountItem({ account }) {
   const dispatch = useDispatch();
   const [amount, setAmount] = useState(0);
   const [accounts, setAccounts] = useState([]);
+  const [accountBalance, setAccountBalance] = useState(account.balance);
 
   const withdrawHandler = () => {
     dispatch(
@@ -25,9 +26,10 @@ function AccountItem({ account }) {
       toast.error("Amount must be greater than 0");
     } else {
       toast.success("Withdrawal successful");
-      setTimeout(() => {
-        window.location.reload();
-      }, 2000);
+      if (accountBalance) {
+        setAccountBalance(accountBalance - amount);
+        setAmount(0);
+      }
     }
   };
 
@@ -53,9 +55,10 @@ function AccountItem({ account }) {
       toast.error("Amount must be greater than 0");
     } else {
       toast.success("Transfer successful");
-      setTimeout(() => {
-        window.location.reload();
-      }, 2000);
+      if (accountBalance) {
+        setAccountBalance(accountBalance - amount);
+        setAmount(0);
+      }
     }
   };
 
@@ -96,7 +99,10 @@ function AccountItem({ account }) {
           </h2>
           <h2 className="font-bold text-center text-black">
             Account balance:{" "}
-            <span className="text-base font-light mb-2">{account.balance}</span>
+            <span className="text-base font-light mb-2">
+              {/* {accountBalance ? accountBalance : account.balance} MAD */}
+              {accountBalance} MAD
+            </span>
           </h2>
 
           <div className="flex justify-center gap-3">
@@ -228,7 +234,7 @@ function AccountItem({ account }) {
 
                 <div className="modal-action">
                   <label
-                    htmlFor="my-modal-withdraw"
+                    htmlFor="my-modal-transfer"
                     className="btn btn-warning"
                     onClick={transferHandler}
                   >
