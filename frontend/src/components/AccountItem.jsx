@@ -96,18 +96,44 @@ function AccountItem({ account }) {
           </h2>
           <h2 className="font-bold text-center text-black">
             Account balance:{" "}
-            <span className="text-base font-light mb-2">
-              {account.balance} DH{" "}
-            </span>
+            <span className="text-base font-light mb-2">{account.balance}</span>
           </h2>
 
           <div className="flex justify-center gap-3">
-            <button
-              onClick={() => dispatch(deleteAccount(account._id))}
-              className="close btn btn-error"
-            >
+            <label htmlFor="my-modal-delete" className="btn btn-error">
               Delete Account
-            </button>
+            </label>
+
+            <input
+              type="checkbox"
+              id="my-modal-delete"
+              className="modal-toggle"
+            />
+            <div className="modal">
+              <div className="modal-box relative bg-white">
+                <label
+                  htmlFor="my-modal-delete"
+                  className="btn btn-sm btn-circle absolute right-2 top-2"
+                >
+                  ✕
+                </label>
+                <p className="py-4">
+                  <span className="font-bold text-center block text-black">
+                    Are you sure you want to delete this account?
+                  </span>
+                </p>
+                <div className="modal-action">
+                  <label
+                    htmlFor="my-modal-delete"
+                    className="btn btn-error"
+                    onClick={() => dispatch(deleteAccount(account._id))}
+                  >
+                    Yes
+                  </label>
+                </div>
+              </div>
+            </div>
+
             <div className="form-control">
               <label className="input-group">
                 <span>Amount</span>
@@ -116,19 +142,101 @@ function AccountItem({ account }) {
                   name="amount"
                   value={amount}
                   onChange={(e) => setAmount(e.target.value)}
-                  placeholder="10"
+                  placeholder="0"
                   className="input input-bordered"
                 />
                 <span>MAD</span>
               </label>
             </div>
 
-            <button className="btn btn-success" onClick={withdrawHandler}>
-              Withdraw
-            </button>
-            <button className="btn btn-warning" onClick={transferHandler}>
-              Transfer to
-            </button>
+            {amount > account.balance || amount <= 0 ? (
+              <label
+                htmlFor="my-modal-withdraw"
+                className="btn btn-success"
+                disabled
+              >
+                Withdraw
+              </label>
+            ) : (
+              <label htmlFor="my-modal-withdraw" className="btn btn-success">
+                Withdraw
+              </label>
+            )}
+            <input
+              type="checkbox"
+              id="my-modal-withdraw"
+              className="modal-toggle"
+            />
+            <div className="modal">
+              <div className="modal-box bg-white">
+                <p className="py-4">
+                  <span className="text-green-500 font-bold text-center block">
+                    Are you sure you want to withdraw {amount} MAD from your
+                    account?
+                  </span>
+                </p>
+                <label
+                  htmlFor="my-modal-withdraw"
+                  className="btn btn-sm btn-circle absolute right-2 top-2"
+                >
+                  ✕
+                </label>
+
+                <div className="modal-action">
+                  <label
+                    htmlFor="my-modal-withdraw"
+                    className="btn btn-success"
+                    onClick={withdrawHandler}
+                  >
+                    Withdraw
+                  </label>
+                </div>
+              </div>
+            </div>
+            {amount > account.balance || amount <= 0 ? (
+              <label
+                htmlFor="my-modal-transfer"
+                className="btn btn-warning"
+                disabled
+              >
+                Transfer
+              </label>
+            ) : (
+              <label htmlFor="my-modal-transfer" className="btn btn-warning">
+                Transfer
+              </label>
+            )}
+            <input
+              type="checkbox"
+              id="my-modal-transfer"
+              className="modal-toggle"
+            />
+            <div className="modal">
+              <div className="modal-box bg-white">
+                <p className="py-4">
+                  <span className="text-green-500 font-bold text-center block">
+                    Are you sure you want to transfer {amount} MAD from your
+                    account to another account?
+                  </span>
+                </p>
+                <label
+                  htmlFor="my-modal-transfer"
+                  className="btn btn-sm btn-circle absolute right-2 top-2"
+                >
+                  ✕
+                </label>
+
+                <div className="modal-action">
+                  <label
+                    htmlFor="my-modal-withdraw"
+                    className="btn btn-warning"
+                    onClick={transferHandler}
+                  >
+                    Transfer to
+                  </label>
+                </div>
+              </div>
+            </div>
           </div>
           <div className="flex justify-center">
             <div className="mb-3 xl:w-96">

@@ -16,9 +16,17 @@ function Header() {
   return (
     <header className="mx-8 header flex items-center justify-between">
       <div className="flex-1">
-        <Link to="/">
-          <img src={logo} width={100} height={100} alt="logo" />
-        </Link>
+        <>
+          <Link to="/">
+            <img
+              className="bg-white rounded-full"
+              src={logo}
+              width={90}
+              height={90}
+              alt="logo"
+            />
+          </Link>
+        </>
       </div>
       {user ? (
         user.isAdmin === false ? (
@@ -26,7 +34,13 @@ function Header() {
             <div className="navbar bg-base-100 ">
               <div className="flex-1">
                 <Link to="/">
-                  <img className="bg-white rounded-full" src={logo} width={90} height={90} alt="logo" />
+                  <img
+                    className="bg-white rounded-full"
+                    src={logo}
+                    width={90}
+                    height={90}
+                    alt="logo"
+                  />
                 </Link>
               </div>
               <div className="flex-none gap-2">
@@ -57,26 +71,13 @@ function Header() {
                     <li>
                       <button
                         onClick={onLogout}
-                        className="relative inline-flex items-center px-12 py-3 overflow-hidden text-lg font-medium text-indigo-600 border-2 border-indigo-600 rounded-full hover:text-white group hover:bg-gray-50"
+                        className="relative inline-block px-4 py-2 font-medium group"
                       >
-                        <span className="absolute left-0 block w-full h-0 transition-all bg-indigo-600 opacity-100 group-hover:h-full top-1/2 group-hover:top-0 duration-400 ease"></span>
-                        <span className="absolute right-0 flex items-center justify-start w-10 h-10 duration-300 transform translate-x-full group-hover:translate-x-0 ease">
-                          <svg
-                            className="w-5 h-5"
-                            fill="none"
-                            stroke="currentColor"
-                            viewBox="0 0 24 24"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              strokeWidth="2"
-                              d="M14 5l7 7m0 0l-7 7m7-7H3"
-                            ></path>
-                          </svg>
+                        <span className="absolute inset-0 w-full h-full transition duration-200 ease-out transform translate-x-1 translate-y-1 bg-black group-hover:-translate-x-0 group-hover:-translate-y-0"></span>
+                        <span className="absolute inset-0 w-full h-full bg-white border-2 border-black group-hover:bg-black"></span>
+                        <span className="relative text-black group-hover:text-white">
+                          Logout
                         </span>
-                        <span className="relative">Logout</span>
                       </button>
                     </li>
                   </ul>
@@ -88,26 +89,13 @@ function Header() {
           <>
             <button
               onClick={onLogout}
-              className="relative inline-flex items-center px-12 py-3 overflow-hidden text-lg font-medium text-indigo-600 border-2 border-indigo-600 rounded-full hover:text-white group hover:bg-gray-50"
+              className="relative inline-block px-4 py-2 font-medium group"
             >
-              <span className="absolute left-0 block w-full h-0 transition-all bg-indigo-600 opacity-100 group-hover:h-full top-1/2 group-hover:top-0 duration-400 ease"></span>
-              <span className="absolute right-0 flex items-center justify-start w-10 h-10 duration-300 transform translate-x-full group-hover:translate-x-0 ease">
-                <svg
-                  className="w-5 h-5"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M14 5l7 7m0 0l-7 7m7-7H3"
-                  ></path>
-                </svg>
+              <span className="absolute inset-0 w-full h-full transition duration-200 ease-out transform translate-x-1 translate-y-1 bg-black group-hover:-translate-x-0 group-hover:-translate-y-0"></span>
+              <span className="absolute inset-0 w-full h-full bg-white border-2 border-black group-hover:bg-black"></span>
+              <span className="relative text-black group-hover:text-white">
+                Logout
               </span>
-              <span className="relative">Logout</span>
             </button>
           </>
         )
